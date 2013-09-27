@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926182643) do
+ActiveRecord::Schema.define(version: 20130927001655) do
 
   create_table "chat_participations", force: true do |t|
     t.integer  "chat_id",     null: false
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(version: 20130926182643) do
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "user_type",   null: false
-    t.string   "edmodo_id",   null: false
+    t.string   "user_type",      null: false
+    t.string   "edmodo_id",      null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "title"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20130926182643) do
     t.integer  "district_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "edmodo_user_id"
   end
 
   add_index "users", ["edmodo_id"], name: "index_users_on_edmodo_id", unique: true, using: :btree

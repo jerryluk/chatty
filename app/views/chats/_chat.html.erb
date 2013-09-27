@@ -1,0 +1,10 @@
+<div id="chat_container_<%= @chat.id %>" class="chat_container">
+  <ul class="messages">
+  </ul>
+  <%= form_for ChatForm.new(user_ids: @chat.users_except(current_user).map(&:id).join(",")), url: chats_path, remote: true do |f| %>
+      <%= f.hidden_field :user_ids %>
+      <%= f.text_area :content %>
+      <br>
+      <%= f.submit "Send", class: "btn btn-default" %>
+    <% end %>
+</div>

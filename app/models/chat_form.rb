@@ -3,14 +3,15 @@ class ChatForm
   include Virtus
 
   attr_reader :chat
+  attr_reader :message
 
-  attribute :message, String
+  attribute :content, String
   attribute :subject, String
   attribute :user, User
   attribute :user_ids, String
 
-  validates :message, :user_ids, :user, presence: true
-  validates :message, length: {maximum: 2000}
+  validates :content, :user_ids, :user, presence: true
+  validates :content, length: {maximum: 2000}
   validates :subject, length: {maximum: 200}
   validate :ensure_recipients_do_not_contain_creator
 
@@ -42,13 +43,13 @@ private
       @chat = Chat.new(user: self.user, subject: self.subject)
       self.recipients.each {|u| @chat.chat_participations.build(user: u, chat: @chat)}
     end
-    message = @chat.messages.new(content: self.message, user: self.user)
+    @message = @chat.messages.new(content: self.content, user: self.user)
 
     if @chat.new_record?
       @chat.save!
     else
       @chat.save!
-      message.save!
+      @message.save!
     end
   end
 

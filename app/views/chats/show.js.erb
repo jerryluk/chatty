@@ -1,0 +1,4 @@
+$('#messages_container').html('<%= j render "chat" %>');
+<% @chat.messages.each do |message| %>
+$(Chat.renderMessage(<%= raw render(:partial => "messages/message", :formats => [:json], :locals => { :message => message }) %>)).appendTo($("#chat_container_<%= @chat.id %> .messages"));
+<% end %>

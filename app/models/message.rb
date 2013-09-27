@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   after_create :join_user_to_chat
   after_create :unarchive_chat
   after_commit :reset_users_cache, on: :create
-  # after_commit :send_notifications, on: :create
+  after_commit :send_notifications, on: :create
 
   auto_strip_attributes :content
 
@@ -32,11 +32,12 @@ class Message < ActiveRecord::Base
   # Public: Delivers notifications to Chat Users.
   def notify!
     chat = self.chat
+    uri = URI.parse("http://localhost:9292/faye")
     chat.users.each do |u|
       unless u == self.user
-        I18n.with_locale(u.locale) do
-          NotificationMailer.delay.message_mail(self.id, u.id) if u.send_message_email
-        end
+        channel = "/users/#{u.edmodo_user_id}"
+        message = {channel: channel, data: { event: "new_message", chat_id: chat.id, message_id: self.id }}
+        Net::HTTP.post_form(uri, :message => message.to_json)
       end
     end
   end

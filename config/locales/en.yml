@@ -20,4 +20,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  global:
+    back: "Back"
+    chatty: "Chatty"
+    full_name: "%{first_name} %{last_name}"
+    title_name: "%{title} %{last_name}"
+    title:
+      mr: "Mr."
+      ms: "Ms."
+      mrs: "Mrs."
+      dr: "Dr."
+      none: ""
+    edmodo: "Edmodo"

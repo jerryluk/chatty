@@ -23,4 +23,18 @@ class User < ActiveRecord::Base
   def unread_chats_count_cache_key
     "#{self.cache_key}/unread_chats_count"
   end
+
+  def messageable_users
+    users = []
+    groups.each do |g|
+      if self.teacher?
+        users += g.users
+      else
+        g.users.each do |u|
+          users << u if u.teacher?
+        end
+      end
+    end
+    users.reject { |u| u == self }
+  end
 end

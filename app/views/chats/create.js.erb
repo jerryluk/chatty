@@ -1,0 +1,7 @@
+
+
+//$(Chat.renderMessage(<%= raw render(:partial => "messages/message", :formats => [:json], :locals => { :message => @message }) %>)).appendTo($("#chat_container_<%= @chat.id %> .messages"));
+$(document).trigger('new_message', { event: "new_message", chat_id: <%= @chat.id %>, message_id: <%= @message.id %> });
+$('#chat_form_content').val('');
+$("#new_chat_container").hide();
+$('#messages_container').show();

@@ -58,6 +58,10 @@ class Chat < ActiveRecord::Base
     end
   end
 
+  def users_except(u)
+    users.reject { |user| user == u }
+  end
+
   # Public: Checks if there are unread messages for the User.
   #
   # user - User who participates in the Chat.

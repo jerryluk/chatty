@@ -54,9 +54,11 @@ gem 'sidekiq'
 gem 'sinatra', :require => false
 gem 'slim'
 gem 'virtus'
+gem 'pry'
 gem 'foreman', group: :development
 gem 'quiet_assets', group: :development
 gem 'less-rails'
-gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-
+# gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
+gem 'handlebars_assets'
+gem 'less-rails-bootstrap'
 

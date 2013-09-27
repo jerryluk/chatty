@@ -1,3 +1,75 @@
-<h1>Root#index</h1>
-<p>Find me in app/views/root/index.html.erb</p>
-<script type="text/javascript" src="/chatty.js"></script>
+<style>
+
+  #chats_container {
+    width: 300px;
+  }
+  #chats_container ul {
+    list-style: none; padding: 0; margin: 0;
+    border: 1px solid #ccc;
+  }
+  #chats_container ul li {
+    padding: 0; margin: 0;
+    border-bottom: 1px solid #eee;
+  }
+  #chats_container ul li .content{
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  #chats_container ul li.unread {
+    background-color: #eef;
+  }
+  .chat_container {
+    padding: 10px;
+  }
+  .chat_container ul {
+    /*width: 300px;*/
+    min-height: 300px;
+    max-height: 450px;
+    overflow: scroll;
+    border: 1px solid #ccc;
+  }
+  #messages_container {}
+  #messages_container ul{ list-style: none; padding: 0; margin: 0;  }
+  #messages_container ul li { list-style: none; padding: 0; margin: 0; }
+  #messages_container ul li .thumb {  }
+  #messages_container ul li .name {  }
+  #messages_container ul li .name strong {
+    display:block;
+  }
+  textarea { margin: 2em auto; min-width: 730px;}
+</style>
+
+<div class="row">
+  <div class="pull-right">
+    <button id="new_chat_button" class="btn btn-default">New Chat</button>
+  </div>
+</div>
+
+<div class="row">
+  <div id="chats_container" class="col-md-2">
+    <ul class="chats">
+    </ul>
+  </div>
+  <div id="messages_container" class="col-md-8">
+  </div>
+
+  <div id="new_chat_container" class="col-md-8" style="display: none;">
+    <%= form_for @chat_form, url: chats_path, remote: true do |f| %>
+      <%= f.select :user_ids, current_user.messageable_users.collect {|u| [proper_name(u), u.id]} %>
+      <%= f.text_area :content %>
+      <br>
+      <%= f.submit "Send", class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>
+
+
+<script>
+  <% @chats.each do |chat| %>
+    $(Chat.renderChat(<%= raw render(:partial => "chats/chat", :formats => [:json], :locals => { :chat => chat }) %>)).appendTo($("#chats_container .chats"));
+  <% end %>
+  $('#new_chat_button').click(function() {
+    $("#new_chat_container").show();
+    $('#messages_container').hide();
+  });
+</script>

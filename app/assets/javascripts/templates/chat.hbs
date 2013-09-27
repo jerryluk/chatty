@@ -1,0 +1,19 @@
+<li
+  id="chat_{{id}}"
+  data-url="{{url}}"
+  class="row
+  {{#if unread}}
+    unread
+  {{/if}}
+  "
+>
+  <div class="thumb col-md-2"><img src="{{thumb_url}}"></div>
+  <div class="col-md-10">
+  <div class="title">{{title}}</div>
+  {{#last_message}}
+    <p class="content">
+      {{content}}
+    </p>
+  {{/last_message}}
+  </div>
+</li>

@@ -7,6 +7,10 @@ Chatty::Application.routes.draw do
   root 'root#index'
   get 'chatty' => 'root#chatty'
 
+  resources :chats do
+    resources :messages
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
